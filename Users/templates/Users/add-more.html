@@ -1,0 +1,90 @@
+{% extends "Users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block extra_js%}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
+
+
+
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.account.image.url }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log your workout</legend>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    {{programme.date|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-12 mb-0">
+
+                    {{pr_form.exercise|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-12 mb-0">
+
+<p>Click <a data-toggle="modal" data-target="#modal" href="{% url 'add-exercise' %}">here</a> to add a new exercise to the list</p>
+                    <div class="modal" id="modal"></div>
+                </div>
+
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.sets|as_crispy_field }}
+                    </div>
+
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.reps|as_crispy_field}}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.weight|as_crispy_field }}
+                    </div>
+                <div id="threeAmigos"> </div>
+                <input type="button" value="Add More" id="add-another">
+                <div class="form-group col-md-12 mb-0">
+                    {{ pr_form.notes|as_crispy_field }}
+
+
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Add To Programme</button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+$('#modal').on('show.bs.modal', function (event) {
+    var modal = $(this)
+    $.ajax({
+        url: "{% url 'add-exercise' %}",
+        context: document.body
+    }).done(function(response) {
+        modal.html(response);
+    });
+})
+<!--$("#add-another").click(function() {-->
+    <!--&lt;!&ndash;form_count ++;&ndash;&gt;-->
+
+    <!--element = $('<div class="form-group col-md-4 mb-0" value="emma"></div>');-->
+    <!--&lt;!&ndash;//element.attr('name', 'extra_field_' + form_count);&ndash;&gt;-->
+    <!--$("#threeAmigos").append(element);-->
+    <!--&lt;!&ndash;// build element and append it to our forms container&ndash;&gt;-->
+
+    <!--$("[name=extra_field_count]").val(form_count);-->
+    <!--// increment form count so our view knows to populate-->
+    <!--// that many fields for validation-->
+<!--})-->
+</script>
+
+{% endblock content %}

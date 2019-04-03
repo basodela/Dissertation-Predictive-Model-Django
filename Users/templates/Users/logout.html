@@ -1,0 +1,15 @@
+{% extends "Users/base.html" %}
+
+{% block content %}
+<div class="alert alert-info">
+         You have been logged out
+        </div>
+
+
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                 <a href="{% url 'login' %}">Log in</a>
+            </small>
+        </div>
+
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends "Users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block extra_js%}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
+
+
+
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.account.image.url }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log your workout</legend>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                    {{pr_form.date|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-12 mb-0">
+
+                    {{pr_form.exercise|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-12 mb-0">
+
+                    <a class="btn btn-outline-danger" href="{% url 'add-exercise' %}">Add New Exercise</a>
+                    <div class="modal" id="modal"></div>
+                </div>
+
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.sets|as_crispy_field }}
+                    </div>
+
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.reps|as_crispy_field}}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ pr_form.weight|as_crispy_field }}
+                    </div>
+
+                <div class="form-group col-md-12 mb-0">
+                    {{ pr_form.notes|as_crispy_field }}
+
+
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Add To Programme</button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+</script>
+
+{% endblock content %}

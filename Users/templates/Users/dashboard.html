@@ -1,0 +1,50 @@
+{% extends "Users/base.html" %}
+{% block content %}
+{% load render_table from django_tables2 %}
+
+
+
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.account.image.url }}">
+        <div class="media-body">
+            <h3l>{{user.username}}'s dashboard</h3l>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+<div>
+
+    <div id="buttons"></div>
+    <table id="prog_table" class="display" border='2' align="center"  style="width:100%">
+
+        {% render_table programme_dashboard %}
+
+    </table>
+
+</div>
+
+    {% endblock content %}
+{% block js %}
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.0/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#prog_table').DataTable({
+    dom: 'B<"clear">lfrtip',
+    buttons: {
+        name: 'primary',
+        buttons: [ 'copy', 'csv', 'excel', 'pdf' ]
+        }}
+    );
+} );
+</script>
+
+{% endblock %}
+
+
+
+
